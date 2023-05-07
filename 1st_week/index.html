@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<!--리액트는 엔진과도 같은 역할을 한다. 말 그대로 interactive한 웹을 구현하는 역할을 함.-->
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<!--리액트 돔은 리액트로 생성한 요소를 html로 가져다주는 역할을 한다.-->
+<script>
+    const root = document.getElementById("root");
+    const Title = <h3 id="title" onmouseenter={() => consle.log("mouse enter")}>HEllo Bello</h3>
+    /*
+    const h3 = React.createElement(
+        "h3", //span 태그를 생성
+        {
+            onmouseenter: () => consle.log("mouse enter"),
+        },
+        //{ id: "sexy-span" }, //id를 지정
+        "Hello I'm a span" //내용을 지정
+    );
+    const btn = React.createElement(
+        "button",
+        {
+            onClick: () => console.log("im clicked"),
+            style: {
+                backgroundColor: "tomato",
+            },
+        },
+        "Click me plz plz plz..."
+    );
+    */
+    const Container = <div>Title Button</div>;
+    ReactDOM.render(Container, root);
+
+</script>
+</html>
+
+<!-- 대충 주도권이 리액트에게 있다는 것이 장점이라는 글 -->
+
