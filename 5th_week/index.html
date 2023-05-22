@@ -1,46 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<html>
 <body>
     <div id="root"></div>
 </body>
-<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-<!--리액트는 엔진과도 같은 역할을 한다. 말 그대로 interactive한 웹을 구현하는 역할을 함.-->
-<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-<!--리액트 돔은 리액트로 생성한 요소를 html로 가져다주는 역할을 한다.-->
-<script>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function App() {
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        };
+        const reset = () => {
+            setAmount(0);
+        };
+        const onInvert = () => {
+            reset();
+            setInverted((current) => !current);
+        };
+        return (
+            <div>
+                <h1>Super Converter</h1>
+                <div>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input
+                        value={inverted ? amount * 60 : amount}
+                        id="minutes"
+                        placeholer="Minutes"
+                        type="number"
+                        onChange={onChange}
+                        disabled={inverted === true}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="hours">Hours</label>
+                    <input
+                        value={inverted ? amount : Math.round(amount/60)}
+                        id="hours"
+                        placeholer="Hours"
+                        type="number"
+                        onChange={onChange}
+                        disabled={inverted === false}
+                    />
+                </div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onInvert}>{inverted ? "Turn Back" : "Invert"}</button>
+            </div>
+        );
+    }
     const root = document.getElementById("root");
-    const Title = <h3 id="title" onmouseenter={() => consle.log("mouse enter")}>HEllo Bello</h3>
-    /*
-    const h3 = React.createElement(
-        "h3", //span 태그를 생성
-        {
-            onmouseenter: () => consle.log("mouse enter"),
-        },
-        //{ id: "sexy-span" }, //id를 지정
-        "Hello I'm a span" //내용을 지정
-    );
-    const btn = React.createElement(
-        "button",
-        {
-            onClick: () => console.log("im clicked"),
-            style: {
-                backgroundColor: "tomato",
-            },
-        },
-        "Click me plz plz plz..."
-    );
-    */
-    const Container = <div>Title Button</div>;
-    ReactDOM.render(Container, root);
-
+    ReactDOM.render(<App/>, root);
 </script>
 </html>
 
-<!-- 대충 주도권이 리액트에게 있다는 것이 장점이라는 글 -->
+<!-- 
+    JSX는 자바스크립트를 확장하는 개념.
+    함수로 만들어준 다음에 그걸 렌더링하는 곳에서는 대문자로 시작하는 태그 <Title />
+    화살표 함수 + 대문자로 렌더링 하는 방식
+    변수를 적용하려면 적용하고, 리렌더링을 해주면 그만이다. 변수 적용은 중괄호 안에 넣어주면 그만이다.
+    useState() 를 하면 배열 하나를 주는데 앞에는 데이터 뒤에는 modifier 함수이다.
+    const x = [1, 2, 3]; -> 이렇게 배열을 만든 다음에
+    const [a, b, c] = x; -> 이렇게 별명을 설정해줄 수가 있다.
+
+    setCounter((current) => current + 1); 이렇게 하는 것이 counter = counter = 1보다 안전하대요 이유는 나도 모르곘음.
+function Btn({text, changeValue}) {
+    return (
+        <button
+            onClick={changeValue}
+            style={{
+                backgroundColor: "tomato",
+                color: "white",
+                padding: "10px 20px",
+                border: 0,
+                borderRadius: 10,
+        }}>{text}</button>
+    )
+}
+function App() {
+    const [value, setValue] = React.useState("Save Changes")
+    const changeValue = () => setValue("Revert Changes")
+    return (
+        <div>
+            <Btn text={value} changeValue={changeValue}/>
+            <Btn text="Continue"/>
+        </div>
+    );
+}
+
+
+
+
+
+
+
+ -->
+
 
